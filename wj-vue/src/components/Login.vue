@@ -32,19 +32,26 @@ export default {
   },
   methods: {
     login () {
+      var _this = this
+      // 打印登录状态
+      console.log(this.$store.state)
       this.$axios
         .post('/login', {
+          // 向后端发送数据
           username: this.loginForm.username,
           password: this.loginForm.password
         })
         .then(response => {
+          // 收到返回的成功代码时，触发 store 中的 login() 方法，
+          // 把loginForm对象传递给 store 中的 user 对象以长期保存
           if (response.data.code === 200) {
-            this.$router.replace({path: '/index'})
-          } else {
-            alert('错误')
+            _this.$store.commit('login', _this.loginForm)
+            // 获取登陆前页面的路径并跳转，如果路径不存在，则跳转到首页
+            var path = this.$route.query.redirect
+            this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
           }
         })
-        .catch(failResonse => {})
+        .catch(failResponse => {})
     }
   }
 }

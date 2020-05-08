@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 @Controller
@@ -24,7 +25,7 @@ public class LoginController {
     // 设定返回体
     @ResponseBody
     // 设置RequestBody后，传入的数据会自动转换成这个类
-    public Result login(@RequestBody User requestUser) {
+    public Result login(@RequestBody User requestUser, HttpSession session) {
         String username = requestUser.getUsername();
         // 进行转义，防止 xss 攻击
         username = HtmlUtils.htmlEscape(username);
@@ -37,6 +38,7 @@ public class LoginController {
             return new Result(400);
         } else {
             System.out.println(username+" Logged in");
+            session.setAttribute("user", user);
             return new Result(200);
         }
     }

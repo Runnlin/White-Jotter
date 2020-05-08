@@ -24,7 +24,11 @@ export default new Router({
     {
       path: '/index',
       name: 'AppIndex',
-      component: AppIndex
+      component: AppIndex,
+      // 为区分是否需要拦截， 添加元数据
+      meta: {
+        requireAuth: true
+      }
     }
   ]
 })
