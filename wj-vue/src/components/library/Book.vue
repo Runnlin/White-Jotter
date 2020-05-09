@@ -2,18 +2,18 @@
   <div>
     <el-row style="height: 840px;">
       <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
-      <el-tooltip effect="dark" placement="right"
+      <el-tooltip :span="4" effect="dark" placement="right-end"
                   v-for="item in books.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                   :key="item.id">
-        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.title}}</p>
+        <p slot="content" style="font-size: 15px;margin-bottom: 6px;">{{item.title}}</p>
         <p slot="content" style="font-size: 13px;margin-bottom: 6px">
           <span>{{item.author}}</span> /
           <span>{{item.date}}</span> /
           <span>{{item.press}}</span>
         </p>
         <p slot="content" style="width: 300px" class="abstract">{{item.abs}}</p>
-        <el-card style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
-                 bodyStyle="padding:10px" shadow="hover">
+        <el-card style="margin: 20px; float: left;" class="book"
+                 bodyStyle="padding:0px" shadow="hover">
           <div class="cover">
             <img :src="item.cover" alt="封面">
           </div>
@@ -146,9 +146,14 @@ export default {
   .author {
     color: #333;
     width: 102px;
-    font-size: 13px;
-    margin-bottom: 6px;
+    font-size: 12px;
+    margin-left: 6px;
     text-align: left;
+  }
+
+  .el-icon-delete {
+    float: right;
+    color: crimson;
   }
 
   .abstract {
