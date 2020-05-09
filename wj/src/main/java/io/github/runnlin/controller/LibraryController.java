@@ -2,9 +2,13 @@ package io.github.runnlin.controller;
 
 import io.github.runnlin.pojo.Book;
 import io.github.runnlin.service.BookService;
+import io.github.runnlin.utils.StringUtiils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -49,6 +53,24 @@ public class LibraryController {
             return bookService.listByCategory(cid);
         } else {
             return list();
+        }
+    }
+
+    @CrossOrigin
+    @PostMapping("api/covers")
+    public String coversUpload(MultipartFile file) throws Exception {
+        String folder = "F:/Pictures/test";
+        File imageFolder = new File(folder);
+        File f = new File(imageFolder, StringUtiils.getRandomString(6)
+                + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4));
+        if (!f.getParentFile().exists())
+            f.getParentFile().mkdirs();
+        try {
+            file.transferTo(f);
+            return "http://localhost:8443/api/file/" + f.getName();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
         }
     }
 }

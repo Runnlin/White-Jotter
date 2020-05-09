@@ -42,6 +42,7 @@
 <script>
 import EditForm from './EditForm'
 import SearchBar from './SearchBar'
+
 export default {
   name: 'Books',
   components: {EditForm, SearchBar},
