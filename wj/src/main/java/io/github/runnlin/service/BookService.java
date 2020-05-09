@@ -32,7 +32,12 @@ public class BookService {
 
     public List<Book> listByCategory(int cid) {
         Category category = categoryService.get(cid);
-        return bookDAO.findAllByCategory(category);
+        return bookDAO.findByCategory(category);
+    }
+
+    public List<Book> Search(String keywords) {
+        return bookDAO.findByTitleLikeOrAuthorLike(
+                '%' + keywords + '%','%' + keywords + '%');
     }
 
 }

@@ -1,4 +1,5 @@
 <template>
+<!-- 点击时进行对分类显示图书 -->
   <el-menu
     class="categories"
     default-active="0"
@@ -37,7 +38,20 @@
 
 <script>
 export default {
-  name: 'SideMenu'
+  name: 'SideMenu',
+  data () {
+    return {
+      cid: ''
+    }
+  },
+  methods: {
+    // 由 @select 触发
+    handleSelect (key, keyPath) {
+      this.cid = key
+      // emit 就是触发，可以触发在父组件中的事件
+      this.$emit('indexSelect')
+    }
+  }
 }
 </script>
 
@@ -46,7 +60,7 @@ export default {
     position: fixed;
     margin-left: 50%;
     left: -600px;
-    top: 100px;
+    top: 150px;
     width: 150px;
   }
 </style>

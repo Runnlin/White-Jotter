@@ -19,7 +19,6 @@ public class CategoryService {
     }
 
     public Category get(int id) {
-        Category category = categoryDAO.findById(id).orElse(null);
-        return category;
+        return categoryDAO.findById(id).orElse(null);
     }
 }
